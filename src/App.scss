@@ -1,0 +1,12 @@
+%flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.App {
+  @extend %flex-center;
+  flex-direction: column;
+}
+

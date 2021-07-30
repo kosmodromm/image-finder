@@ -1,0 +1,19 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 8%;
+}
+
+.sidebar_bookmarks {
+  width: 10px;
+  height: 10px;
+  background: red;
+}
+
+.sidebar_images {
+  width: 10px;
+  height: 10px;
+  background: greenyellow;
+}

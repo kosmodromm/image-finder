@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 8%;
+  max-height: 80px;
+  min-height: 40px;
+  background: goldenrod;
+}
+
+.header_title {
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.header_user {
+  margin-right: 20px;
+}
