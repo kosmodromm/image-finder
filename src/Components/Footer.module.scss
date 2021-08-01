@@ -11,4 +11,14 @@
 
 .footer_credits {
   margin-left: 20px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.finder_content {
+  display: flex;
+  flex-wrap: wrap;
+
 }

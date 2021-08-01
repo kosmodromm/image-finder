@@ -1,6 +1,36 @@
 .finder {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  background: #e37fff;
+  background: #e7e7e7;
+  padding: 25px;
+}
+
+.finder_content {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid goldenrod;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+  position: relative;
+  top: 300px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(350deg);
+  }
 }

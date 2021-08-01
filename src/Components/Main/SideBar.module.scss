@@ -1,19 +1,26 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   width: 8%;
+  padding-top: 40px;
 }
 
 .sidebar_bookmarks {
-  width: 10px;
-  height: 10px;
-  background: red;
+  background: goldenrod;
+  margin: 10px 0;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
 }
 
 .sidebar_images {
-  width: 10px;
-  height: 10px;
-  background: greenyellow;
+  background: goldenrod;
+  margin: 10px 0;
+  a {
+    color: black;
+    text-decoration: none;
+  }
 }

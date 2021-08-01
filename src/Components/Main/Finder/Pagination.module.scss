@@ -1,0 +1,24 @@
+.pagination {
+  display: flex;
+  width: 300px;
+  align-self: flex-end;
+
+  button:active {
+    background: blue;
+  }
+}
+
+.pagination_back {
+  width: 30%;
+  border: 2px solid black;
+}
+
+.pagination_actual {
+  width: 40%;
+  border: 2px solid black;
+}
+
+.pagination_forward {
+  width: 30%;
+  border: 2px solid black;
+}
