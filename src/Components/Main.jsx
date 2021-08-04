@@ -58,7 +58,7 @@ export default function Main() {
     }, [loadImages, timer])
 
     const cardClick = useCallback((imgId) => {
-        let updatedBookmark = Object.assign([], bookmark);
+        let updatedBookmark = [...bookmark];
         updatedBookmark.indexOf(imgId) >= 0 ? updatedBookmark.splice(updatedBookmark.indexOf(imgId), 1) : updatedBookmark = [...updatedBookmark, imgId];
         setBookmark(updatedBookmark);
     }, [bookmark]);
