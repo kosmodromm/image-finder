@@ -1,19 +1,26 @@
 import s from './SideBar.module.scss'
-import {NavLink} from "react-router-dom";
+import {useCallback} from "react";
+import {BookmarksFill, CollectionFill} from "react-bootstrap-icons";
 
-export default function SideBar() {
-return (
-    <div className={s.sidebar}>
-        <div className={s.sidebar_images}>
-            <NavLink to='/finder' >
-                Images
-            </NavLink>
+
+export default function SideBar({onTabChange}) {
+
+    const selectFinder = useCallback(() => onTabChange(0), [onTabChange])
+
+    const selectBookmarks = useCallback(() => onTabChange(1), [onTabChange])
+
+    return (
+        <div className={s.sidebar}>
+            <div className={s.sidebar_images}>
+                <button onClick={selectFinder}>
+                    <CollectionFill />
+                </button>
+            </div>
+            <div className={s.sidebar_bookmarks}>
+                <button onClick={selectBookmarks}>
+                    <BookmarksFill />
+                </button>
+            </div>
         </div>
-        <div className={s.sidebar_bookmarks}>
-            <NavLink to='/bookmarks' >
-                Bookmarks
-            </NavLink>
-        </div>
-    </div>
-)
+    )
 }
