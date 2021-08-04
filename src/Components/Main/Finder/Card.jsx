@@ -17,8 +17,8 @@ export default function Card({imgUrl, imgTitle, imgId, cardClick, bookmark}) {
                     <BookmarkFill
                         className={s.card_bookmark}
                         onClick={handleClick}
-                        fill={
-                            useMemo(() => bookmark.indexOf(imgId) >= 0 ? 'red' : 'black', [imgId, bookmark])
+                        color={
+                            useMemo(() => bookmark.indexOf(imgId) >= 0 ? '#FF0000' : '#000000', [imgId, bookmark])
                         }
                         />
                 </BootstrapCard.Body>

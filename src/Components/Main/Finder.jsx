@@ -21,7 +21,7 @@ export default function Finder({onTextChange, text, awaitingResponse, imagesData
                 })
             :
             <div className={s.loader}/>;
-    }, [imagesData, awaitingResponse]);
+    }, [imagesData, awaitingResponse, bookmark, cardClick]);
 
     return (
         <div className={s.finder}>
