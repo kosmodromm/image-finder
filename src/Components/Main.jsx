@@ -57,9 +57,13 @@ export default function Main() {
         }, 1100);
     }, [loadImages, timer])
 
-    const cardClick = useCallback((imgId) => {
+    const cardClick = useCallback((imgId, imgTitle, imgUrl) => {
+        let newBookmark = {id: imgId, title: imgTitle, url: imgUrl}
         let updatedBookmark = [...bookmark];
-        updatedBookmark.indexOf(imgId) >= 0 ? updatedBookmark.splice(updatedBookmark.indexOf(imgId), 1) : updatedBookmark = [...updatedBookmark, imgId];
+
+        let bookmarkIdx = updatedBookmark.findIndex(elem => elem.id === imgId);
+
+        bookmarkIdx >= 0 ? updatedBookmark.splice(bookmarkIdx, 1) : updatedBookmark = [...updatedBookmark, newBookmark];
         setBookmark(updatedBookmark);
     }, [bookmark]);
 
@@ -67,7 +71,7 @@ export default function Main() {
         if (!currentTab) {
             return <Finder awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
-            return <Bookmarks />;
+            return <Bookmarks bookmark={bookmark}/>;
         }
     }, [currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark]);
 
