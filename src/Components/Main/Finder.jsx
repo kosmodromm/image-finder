@@ -3,7 +3,7 @@ import Input from "./Finder/Input";
 import Pagination from "./Finder/Pagination";
 import { useMemo } from "react";
 import Card from "./Finder/Card";
-import {Col, Row} from "react-bootstrap";
+import {Col, Row, Container} from "react-bootstrap";
 
 export default function Finder({onTextChange, text, awaitingResponse, imagesData, cardClick, bookmark}) {
 
@@ -27,7 +27,9 @@ export default function Finder({onTextChange, text, awaitingResponse, imagesData
         <div className={s.finder}>
             <Input text={text} onInputChange={onTextChange}/>
             <Pagination/>
-            <Row className={s.finder_content}>{content}</Row>
+            <Container fluid>
+                <Row className={s.finder_content}>{content}</Row>
+            </Container>
         </div>
     )
 }

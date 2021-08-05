@@ -54,7 +54,7 @@ export default function Main() {
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
             loadImages(value);
-        }, 1100);
+        }, 800);
     }, [loadImages, timer])
 
     const cardClick = useCallback((imgId, imgTitle, imgUrl) => {
@@ -71,7 +71,7 @@ export default function Main() {
         if (!currentTab) {
             return <Finder awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
-            return <Bookmarks bookmark={bookmark}/>;
+            return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
         }
     }, [currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark]);
 

@@ -1,5 +1,5 @@
 import s from './Bookmarks.module.scss';
-import {Col, Row} from "react-bootstrap";
+import {Col, Row, Container} from "react-bootstrap";
 import {useMemo} from "react";
 import Card from "./Finder/Card";
 
@@ -23,7 +23,9 @@ export default function Bookmarks({bookmark, cardClick}) {
 
 return (
     <div className={s.bookmarks}>
+        <Container fluid>
         <Row className={s.bookmarks_content}>{content}</Row>
+        </Container>
     </div>
 )
 }

@@ -5,3 +5,15 @@
   background: #e7e7e7;
   padding: 25px;
 }
+
+.bookmarks_content {
+  width: 92.5vw;
+  height: 79vh;
+  display: flex;
+  margin-top: 1vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  div {
+    margin-bottom: 20px;
+  }
+}
