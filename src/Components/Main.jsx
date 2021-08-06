@@ -29,7 +29,9 @@ export default function Main() {
             .finally(() => setAwaitingResponse(r => r - 1));
     }, []);
 
-    const loadImages = useCallback((text) => {
+    const loadImages = useCallback((text, page) => {
+        setPage(page);
+
         if (!text) {
             return;
         }
@@ -69,7 +71,7 @@ export default function Main() {
 
     const pageContent = useMemo(() => {
         if (!currentTab) {
-            return <Finder page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
+            return <Finder loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
             return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
         }

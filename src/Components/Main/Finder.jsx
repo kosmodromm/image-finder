@@ -5,7 +5,7 @@ import Card from "./Finder/Card";
 import {Col, Row, Container} from "react-bootstrap";
 import ReactPaginate from 'react-paginate';
 
-export default function Finder({onTextChange, text, awaitingResponse, imagesData, cardClick, bookmark, page, setPage}) {
+export default function Finder({loadImages, onTextChange, text, awaitingResponse, imagesData, cardClick, bookmark, page, setPage}) {
 
     const content = useMemo(() => {
         return imagesData && !awaitingResponse ?
@@ -47,9 +47,8 @@ console.log(imagesData);
                     marginPagesDisplayed={1}
                     pageRangeDisplayed={3}
                     onPageChange={(e) => {
-                        setPage(e.selected + 1);
+                        loadImages(text, e.selected + 1);
                     }}
-                    // onPageActive={(e) => console.log(e)}
                     activeClassName={s.active}
                     containerClassName={s.pagination_wrapper}
                     pageClassName={s.pagination_page}
