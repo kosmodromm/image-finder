@@ -19,7 +19,7 @@ export default function Card({imgUrl, imgTitle, imgId, cardClick, bookmark}) {
                         onClick={handleClick}
                         color={
                             useMemo(() => bookmark.findIndex(elem => elem.id === imgId) >= 0 ?
-                                '#FF0000' :
+                                '#daa520' :
                                 '#000000',
                                 [imgId, bookmark]
                             )

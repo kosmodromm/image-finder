@@ -7,14 +7,14 @@ import {useCallback, useMemo, useRef, useState} from "react";
 const API_KEY = '5f1b3971fa93cb35ebe2d6c0769db9ca';
 const API_ROOT = 'https://api.flickr.com/services/rest/';
 const METHOD = 'flickr.photos.search';
-const PER_PAGE = '10';
+const PER_PAGE = '30';
 const FORMAT = 'json';
 const NO_JSON_CALLBACK = '1';
 
 export default function Main() {
 
     const [currentTab, setCurrentTab] = useState(0);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [awaitingResponse, setAwaitingResponse] = useState(0);
     const [imagesData, setImagesData] = useState(null);
     const [text, setText] = useState('');
@@ -44,7 +44,7 @@ export default function Main() {
             nojsoncallback: NO_JSON_CALLBACK
         })
             .then(data => {
-                setImagesData(data.photos.photo);
+                setImagesData(data);
             });
     }, [page, makeApiRequest])
 
@@ -69,7 +69,7 @@ export default function Main() {
 
     const pageContent = useMemo(() => {
         if (!currentTab) {
-            return <Finder awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
+            return <Finder page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
             return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
         }
