@@ -29,6 +29,8 @@ export default function Main() {
             .then(response => {
                 if (!response.ok) {
                     throw Error(`status: ${response.status}`)
+                } else {
+                    return response.json();
                 }
             })
     }, []);
@@ -65,7 +67,6 @@ export default function Main() {
     let timer = useRef(null);
     const onTextChange = useCallback((value) => {
         setText(value);
-        setPage(0);
 
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
@@ -91,6 +92,7 @@ export default function Main() {
         }
     }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error]);
 
+    console.log(imagesData);
     return (
         <div className={s.main}>
             <SideBar onTabChange={setCurrentTab}/>
