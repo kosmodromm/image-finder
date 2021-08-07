@@ -26,7 +26,7 @@ export default function ImagesList({imagesData, page, pageCount, text, loadImage
                 })
             )
         }
-    }, [imagesData, bookmark, cardClick, loadImages, page, pageCount, text]);
+    }, [imagesData, bookmark, cardClick]);
 
     return <Row className={s.finder_content}>{content}</Row>;
 }
