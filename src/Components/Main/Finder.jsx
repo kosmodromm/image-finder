@@ -1,7 +1,7 @@
 import s from './Finder.module.scss';
 import Input from "./Finder/Input";
 import { useMemo } from "react";
-import ImagesList from "./Finder/ImagesList";
+import ImagesList from "./Finder/ImagesList.jsx";
 
 export default function Finder({error, onStart, loadImages, onTextChange, text, awaitingResponse, imagesData, cardClick, bookmark, page}) {
 
