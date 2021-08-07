@@ -27,34 +27,7 @@ export default function Finder({error, onStart, loadImages, onTextChange, text, 
         } else if (awaitingResponse) {
             return <div className={s.loader}/>;
         } else  {
-           return <>
-               <div className={s.pagination}>
-                   <ReactPaginate
-                       initialPage={page}
-                       disableInitialCallback={true}
-                       pageCount={pageCount}
-                       previousLabel={''}
-                       nextLabel={''}
-                       breakLabel={'...'}
-                       breakClassName={s.break_me}
-                       marginPagesDisplayed={1}
-                       pageRangeDisplayed={3}
-                       onPageChange={(e) => {
-                           loadImages(text, e.selected + 1);
-                       }}
-                       activeClassName={s.active}
-                       containerClassName={s.pagination_wrapper}
-                       pageClassName={s.pagination_page}
-                       pageLinkClassName={s.pagination_page_link}
-                       activeLinkClassName={s.active_link}
-                       previousClassName={s.previous}
-                       nextClassName={s.next}
-                       previousLinkClassName={s.previous_link}
-                       nextLinkClassName={s.next_link}
-                       disabledClassName={s.disabled}
-                   />
-               </div>
-               <ImagesList
+           return <ImagesList
                imagesData={imagesData}
                loadImages={loadImages}
                cardClick={cardClick}
@@ -63,13 +36,42 @@ export default function Finder({error, onStart, loadImages, onTextChange, text, 
                text={text}
                page={page}
                 />
-           </>
         }
     }, [imagesData, awaitingResponse, bookmark, cardClick, onStart, loadImages, page, pageCount, text, error]);
 
     return (
         <div className={s.finder}>
             <Input text={text} onInputChange={onTextChange}/>
+            {imagesData ?
+                <div className={s.pagination}>
+                <ReactPaginate
+                    initialPage={page}
+                    disableInitialCallback={true}
+                    pageCount={pageCount}
+                    previousLabel={''}
+                    nextLabel={''}
+                    breakLabel={'...'}
+                    breakClassName={s.break_me}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={(e) => {
+                        loadImages(text, e.selected + 1);
+                    }}
+                    activeClassName={s.active}
+                    containerClassName={s.pagination_wrapper}
+                    pageClassName={s.pagination_page}
+                    pageLinkClassName={s.pagination_page_link}
+                    activeLinkClassName={s.active_link}
+                    previousClassName={s.previous}
+                    nextClassName={s.next}
+                    previousLinkClassName={s.previous_link}
+                    nextLinkClassName={s.next_link}
+                    disabledClassName={s.disabled}
+                />
+                </div> :
+                <div />
+            }
+
             <Container fluid>
                         {content}
             </Container>

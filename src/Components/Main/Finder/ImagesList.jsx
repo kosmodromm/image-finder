@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import Card from "./Card";
 import {useMemo} from "react";
 
-export default function ImagesList({imagesData, page, pageCount, text, loadImages, bookmark, cardClick}) {
+export default function ImagesList({imagesData, bookmark, cardClick}) {
 
     let content = useMemo(() => {
         if (!imagesData) {
