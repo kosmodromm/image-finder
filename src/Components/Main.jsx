@@ -7,7 +7,7 @@ import {useCallback, useMemo, useRef, useState} from "react";
 const API_KEY = '5f1b3971fa93cb35ebe2d6c0769db9ca';
 const API_ROOT = 'https://api.flickr.com/services/rest/';
 const METHOD = 'flickr.photos.search';
-const PER_PAGE = '30';
+const PER_PAGE = '32';
 const FORMAT = 'json';
 const NO_JSON_CALLBACK = '1';
 
@@ -48,11 +48,13 @@ export default function Main() {
             .then(data => {
                 setImagesData(data);
             });
-    }, [page, makeApiRequest])
+    }, [makeApiRequest])
 
     let timer = useRef(null);
     const onTextChange = useCallback((value) => {
         setText(value);
+        setPage(0);
+
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
             loadImages(value);
@@ -75,9 +77,8 @@ export default function Main() {
         } else {
             return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
         }
-    }, [currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark]);
+    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark]);
 
-    console.log(bookmark);
     return (
         <div className={s.main}>
             <SideBar onTabChange={setCurrentTab}/>
