@@ -19,35 +19,47 @@ export default function Main() {
     const [imagesData, setImagesData] = useState(null);
     const [text, setText] = useState('');
     const [bookmark, setBookmark] = useState([]);
+    const [onStart, setOnStart] = useState(true);
+    const [error, setError] = useState(null)
 
     const makeApiRequest = useCallback((url, params) => {
-        setAwaitingResponse(r => r + 1);
-
         const query = new URLSearchParams(params);
+
         return fetch(`${url}?${query}`)
-            .then(response => response.json())
-            .finally(() => setAwaitingResponse(r => r - 1));
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(`status: ${response.status}`)
+                }
+            })
     }, []);
 
     const loadImages = useCallback((text, page) => {
         setPage(page);
+        setOnStart(false);
 
         if (!text) {
             return;
         }
 
-        makeApiRequest(`${API_ROOT}`, {
-            method: METHOD,
-            api_key: API_KEY,
-            text,
-            per_page: PER_PAGE,
-            page,
-            format: FORMAT,
-            nojsoncallback: NO_JSON_CALLBACK
-        })
-            .then(data => {
-                setImagesData(data);
-            });
+        try {
+            setAwaitingResponse(r => r + 1);
+            makeApiRequest(`${API_ROOT}`, {
+                method: METHOD,
+                api_key: API_KEY,
+                text,
+                per_page: PER_PAGE,
+                page,
+                format: FORMAT,
+                nojsoncallback: NO_JSON_CALLBACK
+            })
+                .then(data => {
+                    setImagesData(data);
+                })
+                .catch((e) => setError(e))
+                .finally(() => setAwaitingResponse(r => r - 1));
+        } catch (e) {
+            setError(e);
+        }
     }, [makeApiRequest])
 
     let timer = useRef(null);
@@ -73,11 +85,11 @@ export default function Main() {
 
     const pageContent = useMemo(() => {
         if (!currentTab) {
-            return <Finder loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
+            return <Finder error={error} onStart={onStart} loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
             return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
         }
-    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark]);
+    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error]);
 
     return (
         <div className={s.main}>
