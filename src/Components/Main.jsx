@@ -75,14 +75,14 @@ export default function Main() {
         }, 1000);
     }, [loadImages, timer])
 
-    const addTag = useCallback((imgId, imgTags) => {
-        let newTags = {id: imgId, tags: imgTags};
+    const addTag = useCallback((imgId, newTag) => {
         let updatedTags;
         if (tags.findIndex(elem => elem.id === imgId) < 0) {
-            updatedTags = [...tags, newTags];
+            let newElem = {id: imgId, tags: [newTag]}
+            updatedTags = [...tags, newElem];
         } else {
             updatedTags = [...tags];
-            updatedTags[tags.findIndex(elem => elem.id === imgId)].tags.push(imgTags)
+            updatedTags[tags.findIndex(elem => elem.id === imgId)].tags.push(newTag)
         }
         setTags(updatedTags);
     }, [tags, setTags])

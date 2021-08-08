@@ -6,19 +6,24 @@ import {useCallback, useMemo, useState} from "react";
 export default function Card({addTag, imgTags, imgUrl, imgTitle, imgId, cardClick, bookmark}) {
 
     const [tagText, setTagText] = useState('');
-    const [tags, setTags] = useState([]);
 
     const onKeyDown = event => {
         if (event.key === 'Enter') {
-            let updatedTags = [...tags, tagText];
-            setTags(updatedTags);
-            setTagText('');
-            addTag(imgId, tags);
+            addTag(imgId, tagText);
         }
     }
 
+    // const onKeyDown = event => {
+    //     if (event.key === 'Enter') {
+    //         let updatedTags = [...tags, tagText];
+    //         setTags(updatedTags);
+    //         setTagText('');
+    //         addTag(imgId, tags);
+    //     }
+    // }
+
     const handleTags = useMemo (() => {
-       return imgTags.length ? `Tags: ${imgTags.join(', ')}` : '';
+       return imgTags.length ? `Tags: ${imgTags.toString()}` : '';
     }, [imgTags])
 
     const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl), [imgId, cardClick, imgTitle, imgUrl])
