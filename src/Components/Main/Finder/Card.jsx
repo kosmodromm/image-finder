@@ -1,19 +1,34 @@
 import s from './Card.module.scss';
 import {Card as BootstrapCard} from "react-bootstrap";
 import {BookmarkFill} from "react-bootstrap-icons";
-import {useCallback, useMemo} from "react";
+import {useCallback, useMemo, useState} from "react";
 
-export default function Card({imgUrl, imgTitle, imgId, cardClick, bookmark}) {
+export default function Card({imgTags, imgUrl, imgTitle, imgId, cardClick, bookmark}) {
 
-    const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl), [imgId, cardClick, imgTitle, imgUrl])
+    const [tagText, setTagText] = useState('');
+    const [tags, setTags] = useState([]);
+
+    const onKeyDown = event => {
+        if (event.key === 'Enter') {
+            let updatedTags = [...tags, tagText];
+            setTags(updatedTags);
+            setTagText('');
+        }
+    }
+
+    const handleTags = useMemo (() => {
+       return imgTags ? `Tags: ${imgTags.join(', ')}` : '';
+    }, [imgTags])
+
+    const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl, tags), [imgId, cardClick, imgTitle, imgUrl, tags])
 
     return (
             <BootstrapCard>
                 <BootstrapCard.Img src={imgUrl} />
                 <BootstrapCard.Body>
                     <BootstrapCard.Title>{imgTitle}</BootstrapCard.Title>
-                    <BootstrapCard.Text>tags...</BootstrapCard.Text>
-                    <input className={s.card_input}/>
+                    <BootstrapCard.Text>{handleTags}</BootstrapCard.Text>
+                    <input className={s.card_input} value={tagText} onChange={event => setTagText(event.target.value)} onKeyDown={onKeyDown}/>
                     <BookmarkFill
                         className={s.card_bookmark}
                         onClick={handleClick}

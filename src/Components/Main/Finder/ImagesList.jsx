@@ -18,9 +18,12 @@ export default function ImagesList({imagesData, bookmark, cardClick}) {
                     let imgUrl=`https://farm${e.farm}.staticflickr.com/${e.server}/${e.id}_${e.secret}.jpg`;
                     let imgTitle = e.title;
                     let imgId = e.id;
+                    let imgTags = bookmark.findIndex(elem => elem.id === imgId) >= 0 ?
+                        bookmark[bookmark.findIndex(elem => elem.id === imgId)].tags :
+                        [];
                     return (
                         <Col xs='3' key={key}>
-                            <Card imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
+                            <Card imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
                         </Col>
                     );
                 })

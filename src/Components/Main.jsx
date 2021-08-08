@@ -74,8 +74,8 @@ export default function Main() {
         }, 800);
     }, [loadImages, timer])
 
-    const cardClick = useCallback((imgId, imgTitle, imgUrl) => {
-        let newBookmark = {id: imgId, title: imgTitle, url: imgUrl}
+    const cardClick = useCallback((imgId, imgTitle, imgUrl, imgTags) => {
+        let newBookmark = {id: imgId, title: imgTitle, url: imgUrl, tags: imgTags}
         let updatedBookmark = [...bookmark];
 
         let bookmarkIdx = updatedBookmark.findIndex(elem => elem.id === imgId);
@@ -92,7 +92,7 @@ export default function Main() {
         }
     }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error]);
 
-    console.log(imagesData);
+    console.log(bookmark);
     return (
         <div className={s.main}>
             <SideBar onTabChange={setCurrentTab}/>
