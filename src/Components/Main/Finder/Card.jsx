@@ -14,18 +14,9 @@ export default function Card({addTag, imgTags, imgUrl, imgTitle, imgId, cardClic
         }
     }
 
-    // const onKeyDown = event => {
-    //     if (event.key === 'Enter') {
-    //         let updatedTags = [...tags, tagText];
-    //         setTags(updatedTags);
-    //         setTagText('');
-    //         addTag(imgId, tags);
-    //     }
-    // }
-
     const handleTags = useMemo (() => {
-       return imgTags.length ? `Tags: ${imgTags.toString()}` : '';
-    }, [imgTags])
+       return imgTags.length ? `Tags: ${imgTags.join(', ')}` : '';
+    }, [imgTags.length])
 
     const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl), [imgId, cardClick, imgTitle, imgUrl])
 

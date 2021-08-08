@@ -116,7 +116,7 @@ export default function Main() {
 
     return (
         <div className={s.main}>
-            <SideBar onTabChange={setCurrentTab}/>
+            <SideBar currentTab={currentTab} onTabChange={setCurrentTab}/>
             {pageContent}
         </div>
     )

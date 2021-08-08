@@ -3,7 +3,7 @@ import {useCallback} from "react";
 import {BookmarksFill, CollectionFill} from "react-bootstrap-icons";
 
 
-export default function SideBar({onTabChange}) {
+export default function SideBar({currentTab, onTabChange}) {
 
     const selectFinder = useCallback(() => onTabChange(0), [onTabChange])
 
@@ -13,12 +13,12 @@ export default function SideBar({onTabChange}) {
         <div className={s.sidebar}>
             <div className={s.sidebar_images}>
                 <button onClick={selectFinder}>
-                    <CollectionFill />
+                    <CollectionFill style={currentTab === 0 ? {color:"goldenrod"} : {color: "black"}}/>
                 </button>
             </div>
             <div className={s.sidebar_bookmarks}>
                 <button onClick={selectBookmarks}>
-                    <BookmarksFill />
+                    <BookmarksFill style={currentTab === 1 ? {color:"goldenrod"} : {color: "black"}}/>
                 </button>
             </div>
         </div>
