@@ -10,6 +10,7 @@ export default function Card({addTag, imgTags, imgUrl, imgTitle, imgId, cardClic
     const onKeyDown = event => {
         if (event.key === 'Enter') {
             addTag(imgId, tagText);
+            setTagText('');
         }
     }
 

@@ -2,7 +2,7 @@ import s from './Main.module.scss';
 import SideBar from "./Main/SideBar";
 import Finder from "./Main/Finder";
 import Bookmarks from "./Main/Bookmarks";
-import {useCallback, useMemo, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 
 const API_KEY = '5f1b3971fa93cb35ebe2d6c0769db9ca';
 const API_ROOT = 'https://api.flickr.com/services/rest/';
@@ -21,7 +21,15 @@ export default function Main() {
     const [bookmark, setBookmark] = useState([]);
     const [onStart, setOnStart] = useState(true);
     const [error, setError] = useState(null);
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState([]);
+
+    useEffect(() => {
+        const cloudBookmarks = localStorage.cloudBookmarks ? JSON.parse(localStorage.cloudBookmarks): [];
+        console.log(cloudBookmarks);
+        if (cloudBookmarks) {
+            setBookmark(cloudBookmarks);
+        }
+    }, [])
 
     const makeApiRequest = useCallback((url, params) => {
         const query = new URLSearchParams(params);
@@ -95,6 +103,7 @@ export default function Main() {
 
         bookmarkIdx >= 0 ? updatedBookmark.splice(bookmarkIdx, 1) : updatedBookmark = [...updatedBookmark, newBookmark];
         setBookmark(updatedBookmark);
+        localStorage.cloudBookmarks = JSON.stringify(updatedBookmark);
     }, [bookmark]);
 
     const pageContent = useMemo(() => {
@@ -105,7 +114,6 @@ export default function Main() {
         }
     }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error, addTag, tags]);
 
-    console.log(bookmark);
     return (
         <div className={s.main}>
             <SideBar onTabChange={setCurrentTab}/>
