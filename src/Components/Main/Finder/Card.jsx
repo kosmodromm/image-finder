@@ -3,7 +3,7 @@ import {Card as BootstrapCard} from "react-bootstrap";
 import {BookmarkFill} from "react-bootstrap-icons";
 import {useCallback, useMemo, useState} from "react";
 
-export default function Card({imgTags, imgUrl, imgTitle, imgId, cardClick, bookmark}) {
+export default function Card({addTag, imgTags, imgUrl, imgTitle, imgId, cardClick, bookmark}) {
 
     const [tagText, setTagText] = useState('');
     const [tags, setTags] = useState([]);
@@ -13,14 +13,15 @@ export default function Card({imgTags, imgUrl, imgTitle, imgId, cardClick, bookm
             let updatedTags = [...tags, tagText];
             setTags(updatedTags);
             setTagText('');
+            addTag(imgId, tags);
         }
     }
 
     const handleTags = useMemo (() => {
-       return imgTags ? `Tags: ${imgTags.join(', ')}` : '';
+       return imgTags.length ? `Tags: ${imgTags.join(', ')}` : '';
     }, [imgTags])
 
-    const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl, tags), [imgId, cardClick, imgTitle, imgUrl, tags])
+    const handleClick = useCallback(() => cardClick(imgId, imgTitle, imgUrl), [imgId, cardClick, imgTitle, imgUrl])
 
     return (
             <BootstrapCard>

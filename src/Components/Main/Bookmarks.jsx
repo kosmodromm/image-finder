@@ -3,7 +3,7 @@ import {Col, Row, Container} from "react-bootstrap";
 import {useMemo} from "react";
 import Card from "./Finder/Card";
 
-export default function Bookmarks({bookmark, cardClick}) {
+export default function Bookmarks({bookmark, cardClick, addTag, tags}) {
 
     const content = useMemo(() => {
         return bookmark ?
@@ -11,18 +11,18 @@ export default function Bookmarks({bookmark, cardClick}) {
                 let imgUrl=e.url;
                 let imgTitle = e.title;
                 let imgId = e.id;
-                let imgTags = bookmark.findIndex(elem => elem.id === imgId) >= 0 ?
-                    bookmark[bookmark.findIndex(elem => elem.id === imgId)].tags :
+                let imgTags = tags.findIndex(elem => elem.id === imgId) >= 0 ?
+                    tags[tags.findIndex(elem => elem.id === imgId)].tags :
                     [];
                 return (
                     <Col xs='3' key={key}>
-                        <Card imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
+                        <Card addTag={addTag} imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
                     </Col>
                 );
             })
             :
             <div className={s.empty}>Bookmarks is empty</div>;
-    }, [bookmark, cardClick]);
+    }, [bookmark, cardClick, addTag, tags]);
 
 return (
     <div className={s.bookmarks}>

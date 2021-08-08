@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import Card from "./Card";
 import {useMemo} from "react";
 
-export default function ImagesList({imagesData, bookmark, cardClick}) {
+export default function ImagesList({addTag, tags, imagesData, bookmark, cardClick}) {
 
     let content = useMemo(() => {
         if (!imagesData) {
@@ -18,18 +18,18 @@ export default function ImagesList({imagesData, bookmark, cardClick}) {
                     let imgUrl=`https://farm${e.farm}.staticflickr.com/${e.server}/${e.id}_${e.secret}.jpg`;
                     let imgTitle = e.title;
                     let imgId = e.id;
-                    let imgTags = bookmark.findIndex(elem => elem.id === imgId) >= 0 ?
-                        bookmark[bookmark.findIndex(elem => elem.id === imgId)].tags :
+                    let imgTags = tags.findIndex(elem => elem.id === imgId) >= 0 ?
+                        tags[tags.findIndex(elem => elem.id === imgId)].tags :
                         [];
                     return (
                         <Col xs='3' key={key}>
-                            <Card imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
+                            <Card addTag={addTag} imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
                         </Col>
                     );
                 })
             )
         }
-    }, [imagesData, bookmark, cardClick]);
+    }, [imagesData, bookmark, cardClick, addTag, tags]);
 
     return <Row className={s.finder_content}>{content}</Row>;
 }

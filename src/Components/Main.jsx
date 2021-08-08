@@ -20,7 +20,8 @@ export default function Main() {
     const [text, setText] = useState('');
     const [bookmark, setBookmark] = useState([]);
     const [onStart, setOnStart] = useState(true);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
+    const [tags, setTags] = useState([])
 
     const makeApiRequest = useCallback((url, params) => {
         const query = new URLSearchParams(params);
@@ -71,11 +72,23 @@ export default function Main() {
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
             loadImages(value);
-        }, 800);
+        }, 1000);
     }, [loadImages, timer])
 
-    const cardClick = useCallback((imgId, imgTitle, imgUrl, imgTags) => {
-        let newBookmark = {id: imgId, title: imgTitle, url: imgUrl, tags: imgTags}
+    const addTag = useCallback((imgId, imgTags) => {
+        let newTags = {id: imgId, tags: imgTags};
+        let updatedTags;
+        if (tags.findIndex(elem => elem.id === imgId) < 0) {
+            updatedTags = [...tags, newTags];
+        } else {
+            updatedTags = [...tags];
+            updatedTags[tags.findIndex(elem => elem.id === imgId)].tags.push(imgTags)
+        }
+        setTags(updatedTags);
+    }, [tags, setTags])
+
+    const cardClick = useCallback((imgId, imgTitle, imgUrl) => {
+        let newBookmark = {id: imgId, title: imgTitle, url: imgUrl}
         let updatedBookmark = [...bookmark];
 
         let bookmarkIdx = updatedBookmark.findIndex(elem => elem.id === imgId);
@@ -86,11 +99,11 @@ export default function Main() {
 
     const pageContent = useMemo(() => {
         if (!currentTab) {
-            return <Finder error={error} onStart={onStart} loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
+            return <Finder addTag={addTag} tags={tags} error={error} onStart={onStart} loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
         } else {
-            return <Bookmarks bookmark={bookmark} cardClick={cardClick}/>;
+            return <Bookmarks bookmark={bookmark} cardClick={cardClick} tags={tags} addTag={addTag}/>;
         }
-    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error]);
+    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error, addTag, tags]);
 
     console.log(bookmark);
     return (
