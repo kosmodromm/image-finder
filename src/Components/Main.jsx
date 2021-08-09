@@ -24,8 +24,7 @@ export default function Main() {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        const cloudBookmarks = localStorage.cloudBookmarks ? JSON.parse(localStorage.cloudBookmarks): [];
-        console.log(cloudBookmarks);
+        const cloudBookmarks = localStorage.getItem('cloudBookmarks') ? JSON.parse(localStorage.getItem('cloudBookmarks')): [];
         if (cloudBookmarks) {
             setBookmark(cloudBookmarks);
         }
@@ -103,7 +102,7 @@ export default function Main() {
 
         bookmarkIdx >= 0 ? updatedBookmark.splice(bookmarkIdx, 1) : updatedBookmark = [...updatedBookmark, newBookmark];
         setBookmark(updatedBookmark);
-        localStorage.cloudBookmarks = JSON.stringify(updatedBookmark);
+        localStorage.setItem('cloudBookmarks', JSON.stringify(updatedBookmark));
     }, [bookmark]);
 
     const pageContent = useMemo(() => {
