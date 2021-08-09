@@ -26,7 +26,12 @@ export default function Card({addTag, imgTags, imgUrl, imgTitle, imgId, cardClic
                 <BootstrapCard.Body>
                     <BootstrapCard.Title>{imgTitle}</BootstrapCard.Title>
                     <BootstrapCard.Text>{handleTags}</BootstrapCard.Text>
-                    <input className={s.card_input} value={tagText} onChange={event => setTagText(event.target.value)} onKeyDown={onKeyDown}/>
+                    <input
+                        className={s.card_input}
+                        value={tagText}
+                        onChange={event => setTagText(event.target.value)}
+                        onKeyDown={onKeyDown}
+                    />
                     <BookmarkFill
                         className={s.card_bookmark}
                         onClick={handleClick}

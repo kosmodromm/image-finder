@@ -23,7 +23,15 @@ export default function ImagesList({addTag, tags, imagesData, bookmark, cardClic
                         [];
                     return (
                         <Col xs='3' key={key}>
-                            <Card addTag={addTag} imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
+                            <Card
+                                addTag={addTag}
+                                imgTags={imgTags}
+                                imgUrl={imgUrl}
+                                imgTitle={imgTitle}
+                                imgId={imgId}
+                                cardClick={cardClick}
+                                bookmark={bookmark}
+                            />
                         </Col>
                     );
                 })
@@ -31,5 +39,5 @@ export default function ImagesList({addTag, tags, imagesData, bookmark, cardClic
         }
     }, [imagesData, bookmark, cardClick, addTag, tags]);
 
-    return <Row className={s.finder_content}>{content}</Row>;
+    return <Row>{content}</Row>;
 }

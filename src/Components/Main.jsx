@@ -24,7 +24,10 @@ export default function Main() {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        const cloudBookmarks = localStorage.getItem('cloudBookmarks') ? JSON.parse(localStorage.getItem('cloudBookmarks')): [];
+        const cloudBookmarks = localStorage.getItem('cloudBookmarks') ?
+            JSON.parse(localStorage.getItem('cloudBookmarks')) :
+            [];
+
         if (cloudBookmarks) {
             setBookmark(cloudBookmarks);
         }
@@ -100,18 +103,48 @@ export default function Main() {
 
         let bookmarkIdx = updatedBookmark.findIndex(elem => elem.id === imgId);
 
-        bookmarkIdx >= 0 ? updatedBookmark.splice(bookmarkIdx, 1) : updatedBookmark = [...updatedBookmark, newBookmark];
+        bookmarkIdx >= 0 ?
+            updatedBookmark.splice(bookmarkIdx, 1) :
+            updatedBookmark = [...updatedBookmark, newBookmark];
+
         setBookmark(updatedBookmark);
         localStorage.setItem('cloudBookmarks', JSON.stringify(updatedBookmark));
     }, [bookmark]);
 
     const pageContent = useMemo(() => {
         if (!currentTab) {
-            return <Finder addTag={addTag} tags={tags} error={error} onStart={onStart} loadImages={loadImages} page={page} setPage={setPage} awaitingResponse={awaitingResponse} imagesData={imagesData} text={text} onTextChange={onTextChange} cardClick={cardClick} bookmark={bookmark}/>;
+            return <Finder
+                addTag={addTag}
+                tags={tags}
+                error={error}
+                onStart={onStart}
+                loadImages={loadImages}
+                page={page}
+                setPage={setPage}
+                awaitingResponse={awaitingResponse}
+                imagesData={imagesData}
+                text={text}
+                onTextChange={onTextChange}
+                cardClick={cardClick}
+                bookmark={bookmark}/>;
         } else {
             return <Bookmarks bookmark={bookmark} cardClick={cardClick} tags={tags} addTag={addTag}/>;
         }
-    }, [loadImages, page, currentTab, awaitingResponse, imagesData, text, onTextChange, cardClick, bookmark, onStart, error, addTag, tags]);
+    }, [
+        loadImages,
+        page,
+        currentTab,
+        awaitingResponse,
+        imagesData,
+        text,
+        onTextChange,
+        cardClick,
+        bookmark,
+        onStart,
+        error,
+        addTag,
+        tags
+    ]);
 
     return (
         <div className={s.main}>

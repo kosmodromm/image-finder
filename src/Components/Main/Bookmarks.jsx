@@ -16,7 +16,15 @@ export default function Bookmarks({bookmark, cardClick, addTag, tags}) {
                     [];
                 return (
                     <Col xs='3' key={key}>
-                        <Card addTag={addTag} imgTags={imgTags} imgUrl={imgUrl} imgTitle={imgTitle} imgId={imgId} cardClick={cardClick} bookmark={bookmark}/>
+                        <Card
+                            addTag={addTag}
+                            imgTags={imgTags}
+                            imgUrl={imgUrl}
+                            imgTitle={imgTitle}
+                            imgId={imgId}
+                            cardClick={cardClick}
+                            bookmark={bookmark}
+                        />
                     </Col>
                 );
             })

@@ -5,7 +5,20 @@ import ImagesList from "./Finder/ImagesList.jsx";
 import ReactPaginate from "react-paginate";
 import {Container} from "react-bootstrap";
 
-export default function Finder({addTag, tags, error, onStart, loadImages, onTextChange, text, awaitingResponse, imagesData, cardClick, bookmark, page}) {
+export default function Finder({
+                                   addTag,
+                                   tags,
+                                   error,
+                                   onStart,
+                                   loadImages,
+                                   onTextChange,
+                                   text,
+                                   awaitingResponse,
+                                   imagesData,
+                                   cardClick,
+                                   bookmark,
+                                   page
+}) {
 
     const pageCount = useMemo(() => {
         if (!imagesData) {
@@ -39,7 +52,20 @@ export default function Finder({addTag, tags, error, onStart, loadImages, onText
                page={page}
                 />
         }
-    }, [imagesData, awaitingResponse, bookmark, cardClick, onStart, loadImages, page, pageCount, text, error, addTag, tags]);
+    }, [
+        imagesData,
+        awaitingResponse,
+        bookmark,
+        cardClick,
+        onStart,
+        loadImages,
+        page,
+        pageCount,
+        text,
+        error,
+        addTag,
+        tags
+    ]);
 
     return (
         <div className={s.finder}>
